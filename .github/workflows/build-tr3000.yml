@@ -1,9 +1,22 @@
 name: Main
 permissions: write-all
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '选择部署环境'  # 参数描述
+        required: true             # 是否必填
+        default: 'production'      # 默认值
+        type: choice               # 参数类型（choice/string/boolean等）
+        options:                   # 可选值（仅对 choice 类型有效）
+          - 'production'
+          - 'staging'
+          - 'development'
+      verbose_logging:
+        description: '启用详细日志'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build:
